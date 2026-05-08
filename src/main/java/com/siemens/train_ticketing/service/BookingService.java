@@ -22,7 +22,7 @@ public class BookingService {
 
     @Transactional
     public Booking bookTicket(String email, String trainId, String depStationId, String arrStationId, int numberOfTickets) {
-        Train train = trainRepository.findById(trainId).orElseThrow(() -> new IllegalArgumentException(
+        Train train = trainRepository.findByIdForUpdate(trainId).orElseThrow(() -> new IllegalArgumentException(
                 "Train with ID" + trainId + " not found."));
         Station departure = stationRepository.findById(depStationId).orElseThrow(() -> new IllegalArgumentException
                 ("Departure Station with ID" + depStationId + " not found."));
