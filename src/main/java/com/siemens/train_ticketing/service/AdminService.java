@@ -41,4 +41,23 @@ public class AdminService {
             notificationService.sendEmail(booking.getCustomerEmail(), subject, body);
         }
     }
+
+    public List<Booking> getBookingsForTrain(String trainId) {
+        return bookingRepository.findByTrainId(trainId);
+    }
+
+    public Train createTrain(Train train) {
+        if(trainRepository.existsById(train.getId())){
+            throw new IllegalArgumentException("Train with id " + train.getId() + " already exists.");
+        }
+
+        return trainRepository.save(train);
+    }
+
+    public void deleteTrain(String trainId) {
+        if(!trainRepository.existsById(trainId)){
+            throw new IllegalArgumentException("Train with id " + trainId + " not found.");
+        }
+        trainRepository.deleteById(trainId);
+    }
 }
