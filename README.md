@@ -136,6 +136,21 @@ Below are step-by-step examples of how to test all required functionalities usin
 }
 
 * **Expected Output:** The saved route segment linking Cluj-Napoca (CJ) to Timisoara (TM).
+---
+## 🌟 Problem 2 (Optional) - Solved: Concurrent Booking Stress-Test
+
+**The Problem:** In a real-world scenario (e.g., tickets for a major festival), 100 users might click the "Book" button at the exact same millisecond. Without proper database locking, all 100 threads would read the same available capacity and successfully book, leading to massive overbooking despite validation logic.
+
+**The Solution:** Implemented **Pessimistic Write Locking** (`@Lock(LockModeType.PESSIMISTIC_WRITE)`) in the Spring Data JPA Repository. This forces the database to lock the specific `Train` row during the transaction, guaranteeing that subsequent concurrent threads must wait in line and re-evaluate the true capacity.
+
+**Programmatic Implementation & Testing:**
+A dedicated API endpoint was created to programmatically demonstrate this edge case using Java Concurrency utilities (`ExecutorService`, `CountDownLatch`).
+
+* **Endpoint:** `POST /api/bonus/stress-test`
+* **How it works:** 1. It creates a temporary train with a capacity of **5 seats**.
+  2. It spawns **100 concurrent threads** acting as users.
+  3. It forces all 100 threads to execute the booking service simultaneously.
+* **Expected Result:** The response will explicitly show that exactly 5 bookings succeeded and 95 were successfully rejected, proving the system is 100% thread-safe against race conditions.
 
 ---
 
