@@ -4,7 +4,7 @@ This project is a RESTful API built with Java and Spring Boot, designed to handl
 
 ## 🚀 Technical Highlights & Architecture
 
-* **Framework:** Spring Boot 3 with Java 17/21.
+* **Framework:** Spring Boot 3 with Java 17.
 * **Architecture:** Layered Architecture (Controllers -> Services -> Repositories -> Models) ensuring a clear separation of concerns.
 * **Pathfinding Algorithm:** Implemented **Dijkstra's Algorithm** using a `PriorityQueue` to find the absolute *fastest* route between two stations, calculating both travel time and layover/wait times.
 * **Persistence:** Utilizes **Spring Data JPA** with an **H2 In-Memory Database**. This ensures the application is highly portable and requires *zero configuration* from the examiner to run.
